@@ -1,4 +1,4 @@
-package com.example.partnercorporation;
+package com.example.partnercorporation.delegates;
 
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
