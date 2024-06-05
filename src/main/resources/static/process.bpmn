@@ -8,50 +8,105 @@
     <serviceTask id="logDataTask" name="Log Data" camunda:class="com.example.partnercorporation.delegates.LogDataDelegate" />
     <sequenceFlow id="flow3" sourceRef="logDataTask" targetRef="generatePdfTask" />
     <endEvent id="endEvent" name="End">
-      <incoming>Flow_1v6cyll</incoming>
+      <incoming>Flow_01s73b8</incoming>
     </endEvent>
-    <sequenceFlow id="Flow_1v6cyll" sourceRef="generatePdfTask" targetRef="endEvent" />
+    <sequenceFlow id="Flow_1v6cyll" sourceRef="generatePdfTask" targetRef="Activity_1ik4mt7" />
     <serviceTask id="generatePdfTask" name="Generate PDF" camunda:class="com.example.partnercorporation.delegates.GeneratePdfDelegate">
       <incoming>flow3</incoming>
       <outgoing>Flow_1v6cyll</outgoing>
     </serviceTask>
+    <userTask id="Activity_0p9p6j4" name="Managers search for client partner">
+      <incoming>Flow_0z51bkx</incoming>
+      <outgoing>Flow_0bv3nzd</outgoing>
+    </userTask>
+    <userTask id="Activity_1ik4mt7" name="Send pdf to Kaspi email">
+      <incoming>Flow_1v6cyll</incoming>
+    </userTask>
+    <userTask id="Activity_1hh3v1e" name="Sending their answer">
+      <incoming>Flow_0bv3nzd</incoming>
+      <outgoing>Flow_01s73b8</outgoing>
+    </userTask>
+    <boundaryEvent id="Event_06hbnc3" name="Waiting request" cancelActivity="false" attachedToRef="Activity_1ik4mt7">
+      <outgoing>Flow_0z51bkx</outgoing>
+      <timerEventDefinition id="TimerEventDefinition_00dkbri">
+        <timeDuration xsi:type="tFormalExpression">PT1M</timeDuration>
+      </timerEventDefinition>
+    </boundaryEvent>
+    <sequenceFlow id="Flow_0z51bkx" sourceRef="Event_06hbnc3" targetRef="Activity_0p9p6j4" />
+    <sequenceFlow id="Flow_01s73b8" sourceRef="Activity_1hh3v1e" targetRef="endEvent" />
+    <sequenceFlow id="Flow_0bv3nzd" sourceRef="Activity_0p9p6j4" targetRef="Activity_1hh3v1e" />
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="helloWorldProcess">
       <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="startEvent">
-        <omgdc:Bounds x="173" y="102" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ServiceTask_1_di" bpmnElement="serviceTask">
-        <omgdc:Bounds x="270" y="80" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ServiceTask_2_di" bpmnElement="logDataTask">
-        <omgdc:Bounds x="470" y="80" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="endEvent">
-        <omgdc:Bounds x="852" y="102" width="36" height="36" />
+        <omgdc:Bounds x="173" y="222" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="860" y="138" width="20" height="14" />
+          <omgdc:Bounds x="179" y="258" width="25" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1_di" bpmnElement="serviceTask">
+        <omgdc:Bounds x="270" y="200" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_2_di" bpmnElement="logDataTask">
+        <omgdc:Bounds x="470" y="200" width="100" height="80" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0q3f1ts_di" bpmnElement="generatePdfTask">
-        <omgdc:Bounds x="680" y="80" width="100" height="80" />
+        <omgdc:Bounds x="680" y="200" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="endEvent">
+        <omgdc:Bounds x="1452" y="222" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1460" y="258" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0hdohrz_di" bpmnElement="Activity_1ik4mt7">
+        <omgdc:Bounds x="850" y="207" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_055f6qz_di" bpmnElement="Activity_1hh3v1e">
+        <omgdc:Bounds x="1220" y="200" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0m7yw12_di" bpmnElement="Activity_0p9p6j4">
+        <omgdc:Bounds x="1010" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0fmz20o_di" bpmnElement="Event_06hbnc3">
+        <omgdc:Bounds x="902" y="189" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="931" y="173" width="77" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="flow1">
-        <omgdi:waypoint x="209" y="120" />
-        <omgdi:waypoint x="270" y="120" />
+        <omgdi:waypoint x="209" y="240" />
+        <omgdi:waypoint x="270" y="240" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="flow2">
-        <omgdi:waypoint x="370" y="120" />
-        <omgdi:waypoint x="470" y="120" />
+        <omgdi:waypoint x="370" y="240" />
+        <omgdi:waypoint x="470" y="240" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="flow3">
-        <omgdi:waypoint x="570" y="120" />
-        <omgdi:waypoint x="680" y="120" />
+        <omgdi:waypoint x="570" y="240" />
+        <omgdi:waypoint x="680" y="240" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1v6cyll_di" bpmnElement="Flow_1v6cyll">
-        <omgdi:waypoint x="780" y="120" />
-        <omgdi:waypoint x="852" y="120" />
+        <omgdi:waypoint x="780" y="240" />
+        <omgdi:waypoint x="850" y="240" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0z51bkx_di" bpmnElement="Flow_0z51bkx">
+        <omgdi:waypoint x="920" y="189" />
+        <omgdi:waypoint x="920" y="120" />
+        <omgdi:waypoint x="1010" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_01s73b8_di" bpmnElement="Flow_01s73b8">
+        <omgdi:waypoint x="1320" y="240" />
+        <omgdi:waypoint x="1452" y="240" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0bv3nzd_di" bpmnElement="Flow_0bv3nzd">
+        <omgdi:waypoint x="1110" y="120" />
+        <omgdi:waypoint x="1165" y="120" />
+        <omgdi:waypoint x="1165" y="240" />
+        <omgdi:waypoint x="1220" y="240" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

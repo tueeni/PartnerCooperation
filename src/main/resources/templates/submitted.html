@@ -8,8 +8,9 @@
 <body>
 <h1 th:text="${message}"></h1>
 <h2>Download PDF</h2>
-<a th:href="@{'/generate-pdf/' + ${formDataId}}" th:text="Download PDF" download>
+<a th:href="@{'/generate-pdf/' + ${formDataId}}" th:text="'Download PDF for '" download>
     <button>Download PDF</button>
 </a>
+
 </body>
 </html>
