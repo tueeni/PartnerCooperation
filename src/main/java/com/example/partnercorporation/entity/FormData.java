@@ -14,8 +14,7 @@ public class FormData {
     private String contactFace;
     private String phone;
     private String email;
-
-
+    private boolean status;
     public Long getId() {
         return id;
     }
@@ -55,4 +54,12 @@ public class FormData {
     public void setEmail(String email) {
         this.email = email;
     }
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
 }

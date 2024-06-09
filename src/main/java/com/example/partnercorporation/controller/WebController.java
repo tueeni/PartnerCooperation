@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -86,4 +87,20 @@ public class WebController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+    @PutMapping("/accept/{id}")
+    public ModelAndView acceptFormData(@PathVariable Long id) {
+        FormData formData = formDataRepository.findById(id).orElseThrow(() -> new RuntimeException("FormData not found"));
+        formData.setStatus(true);
+        formDataRepository.save(formData);
+        return new ModelAndView("accepted");  // Ensure "accepted" corresponds to a valid Thymeleaf template
+    }
+
+    @PutMapping("/reject/{id}")
+    public ModelAndView rejectFormData(@PathVariable Long id) {
+        FormData formData = formDataRepository.findById(id).orElseThrow(() -> new RuntimeException("FormData not found"));
+        formData.setStatus(false);
+        formDataRepository.save(formData);
+        return new ModelAndView("rejected");  // Ensure "rejected" corresponds to a valid Thymeleaf template
+    }
+
 }
