@@ -3,10 +3,10 @@ package com.example.partnercorporation.controller;
 
 import com.example.partnercorporation.entity.FormData;
 import com.example.partnercorporation.repository.FormDataRepository;
+import com.example.partnercorporation.service.EmailService;
 import com.example.partnercorporation.service.PdfGenerationService;
 import org.camunda.bpm.engine.RuntimeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
@@ -30,6 +31,9 @@ public class WebController {
 
     @Autowired
     private PdfGenerationService pdfGenerationService;
+
+    @Autowired
+    private EmailService emailService;
 
     @GetMapping("/")
     public String index() {
@@ -66,25 +70,39 @@ public class WebController {
         return "submitted";
     }
 
-    @GetMapping("/generate-pdf/{formDataId}")
-    public ResponseEntity<byte[]> generatePdf(@PathVariable Long formDataId, Model model) {
+    @GetMapping("/download-pdf/{formDataId}")
+    public ResponseEntity<byte[]> generateAndDownloadPdf(@PathVariable Long formDataId, Model model) {
         FormData formData = formDataRepository.findById(formDataId).orElse(null);
 
         if (formData != null) {
             byte[] pdfBytes = pdfGenerationService.generatePdf(formData);
             String companyName = formData.getCompanyName();
-            String fileName = companyName.replaceAll("\\s", "_") + "_data.pdf";
-
+            String fileName = companyName.replaceAll("\\s", "_") + ".pdf";
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_PDF);
-            headers.setContentDispositionFormData(fileName, fileName);
+            headers.setContentDispositionFormData("attachment", fileName);
             headers.setContentLength(pdfBytes.length);
-
-            return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(pdfBytes);
         } else {
-            // exception
             model.addAttribute("message", "Error: Form data not found for id: " + formDataId);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+    @PostMapping("/sendEmail")
+    public ModelAndView sendEmail(
+            @RequestParam("file") MultipartFile file) {
+        try {
+            byte[] fileBytes = file.getBytes();
+            String fileName = file.getOriginalFilename();
+
+            emailService.sendEmail(fileName, fileBytes);
+
+            return new ModelAndView("email-sent");
+
+        } catch (Exception e) {
+            return new ModelAndView("error");
         }
     }
     @PutMapping("/accept/{id}")
@@ -92,7 +110,7 @@ public class WebController {
         FormData formData = formDataRepository.findById(id).orElseThrow(() -> new RuntimeException("FormData not found"));
         formData.setStatus(true);
         formDataRepository.save(formData);
-        return new ModelAndView("accepted");  // Ensure "accepted" corresponds to a valid Thymeleaf template
+        return new ModelAndView("accepted");
     }
 
     @PutMapping("/reject/{id}")
@@ -100,7 +118,7 @@ public class WebController {
         FormData formData = formDataRepository.findById(id).orElseThrow(() -> new RuntimeException("FormData not found"));
         formData.setStatus(false);
         formDataRepository.save(formData);
-        return new ModelAndView("rejected");  // Ensure "rejected" corresponds to a valid Thymeleaf template
+        return new ModelAndView("rejected");
     }
 
 }

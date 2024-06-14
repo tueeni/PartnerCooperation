@@ -20,13 +20,15 @@ public class GeneratePdfDelegate implements JavaDelegate {
     public void execute(DelegateExecution execution) {
         Long formDataId = (Long) execution.getVariable("formDataId");
         FormData formData = formDataRepository.findById(formDataId).orElse(null);
+        String companyName = (String) execution.getVariable("companyName");
+
 
         if (formData != null) {
             // Generating form data
             byte[] pdfData = pdfGenerationService.generatePdf(formData);
 
             // saving pdf to process variable
-            execution.setVariable("generatedPdf", pdfData);
+            execution.setVariable(companyName, pdfData);
         } else {
             System.out.println("Form data not found for id: " + formDataId);
         }
