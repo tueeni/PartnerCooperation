@@ -20,9 +20,7 @@ public class MailConfig {
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
-//        props.put("mail.smtp.host", "smtp.mail.ru");
         props.put("mail.smtp.auth", "true");
-//        props.put("mail.smtp.port", "587");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.starttls.required", "true");
         props.put("mail.smtp.ssl.protocols", "TLSv1.2");
@@ -31,4 +29,5 @@ public class MailConfig {
 
         return mailSender;
     }
+
 }

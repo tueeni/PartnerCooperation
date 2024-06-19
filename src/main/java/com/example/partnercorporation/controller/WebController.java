@@ -4,7 +4,9 @@ package com.example.partnercorporation.controller;
 import com.example.partnercorporation.entity.FormData;
 import com.example.partnercorporation.repository.FormDataRepository;
 import com.example.partnercorporation.service.EmailService;
+import com.example.partnercorporation.service.MailService;
 import com.example.partnercorporation.service.PdfGenerationService;
+import jakarta.mail.MessagingException;
 import org.camunda.bpm.engine.RuntimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -35,6 +37,9 @@ public class WebController {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private MailService mailService;
+
     @GetMapping("/")
     public String index() {
         return "index";
@@ -62,7 +67,7 @@ public class WebController {
         variables.put("phone", phone);
         variables.put("email", email);
         variables.put("formDataId", savedFormData.getId());
-        runtimeService.startProcessInstanceByKey("helloWorldProcess", variables);
+        runtimeService.startProcessInstanceByKey("partnerCooperation", variables);
 
         model.addAttribute("message", "Form submitted! Process started and data saved.");
         model.addAttribute("formDataId", savedFormData.getId());
@@ -105,20 +110,17 @@ public class WebController {
             return new ModelAndView("error");
         }
     }
-    @PutMapping("/accept/{id}")
-    public ModelAndView acceptFormData(@PathVariable Long id) {
-        FormData formData = formDataRepository.findById(id).orElseThrow(() -> new RuntimeException("FormData not found"));
-        formData.setStatus(true);
-        formDataRepository.save(formData);
-        return new ModelAndView("accepted");
+
+    @GetMapping("/emails/access-keyword")
+    public String getEmailsWithAccessKeyword(Model model) throws MessagingException {
+        model.addAttribute("emails", mailService.getEmailsWithAccessKeyword());
+        return "emails/access-emails";
     }
 
-    @PutMapping("/reject/{id}")
-    public ModelAndView rejectFormData(@PathVariable Long id) {
-        FormData formData = formDataRepository.findById(id).orElseThrow(() -> new RuntimeException("FormData not found"));
-        formData.setStatus(false);
-        formDataRepository.save(formData);
-        return new ModelAndView("rejected");
+    @GetMapping("/emails/decline-keyword")
+    public String getEmailsWithDeclineKeyword(Model model) throws MessagingException {
+        model.addAttribute("emails", mailService.getEmailsWithDeclineKeyword());
+        return "emails/decline-emails";
     }
 
 }
