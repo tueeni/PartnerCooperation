@@ -3,69 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Client Form</title>
+    <title>Fill the Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
+        body, html {
+            height: 100%;
             margin: 0;
-            padding: 20px;
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Prevent scrolling */
+        }
+        .bg {
+            background-image: url('https://www.caffemoak.com/wp-content/uploads/2021/05/AdobeStock_109439683-scaled-1920x1080.jpeg');
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            filter: brightness(30%);
+            position: fixed;
+            width: 100%;
+            z-index: -1;
+        }
+        .content {
+            color: #262626;
+            position: relative;
+            text-align: center;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+        }
+        .logo {
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 20px;
         }
         h1 {
-            color: #4CAF50;
+            color: #106dad;
+            font-size: 36px;
+            margin-bottom: 20px;
         }
         form {
-            background-color: #fff;
+            background-color: rgba(241, 237, 237, 0.6); /* Semi-transparent background */
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            margin: 0 auto;
+            border-radius: 10px;
+            width: 50%;
+            margin: auto;
         }
         label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #1c1c1c;
+            text-align: left;
         }
-        input[type="text"],
-        input[type="email"] {
+        input[type="text"], input[type="email"] {
             width: 100%;
-            padding: 8px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
+            font-size: 18px;
+            color: #1c1c1c;
+            background-color: rgba(255, 255, 255, 0.8); /* Input background color */
+            padding: 10px;
+            border: none;
+            border-radius: 20px; /* Rounded corners */
+            margin-bottom: 10px;
         }
         input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
+            background-color: #106dad;
+            color: rgba(255, 255, 255, 0.8);
             border: none;
             padding: 10px 20px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
-            font-size: 16px;
-            border-radius: 4px;
+            font-size: 18px;
+            margin-top: 10px;
             cursor: pointer;
+            border-radius: 20px; /* Rounded corners */
         }
         input[type="submit"]:hover {
-            background-color: #45a049;
+            background-color: #0d5e8e;
         }
     </style>
 </head>
 <body>
-<h1>Fill the Form</h1>
-<form action="/submit-form" method="post">
-    <label for="companyName">Company name:</label>
-    <input type="text" id="companyName" name="companyName" required><br>
-    <label for="contactFace">Contact Face:</label>
-    <input type="text" id="contactFace" name="contactFace" required><br>
-    <label for="phone">Phone number:</label>
-    <input type="text" id="phone" name="phone" required><br>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required><br>
-    <input type="submit" value="Submit">
-</form>
+<div class="bg"></div>
+<div class="content">
+    <img src="https://smartvend.kz/assets/img/logo.png" alt="Company Logo" class="logo">
+    <h1>Fill the Form</h1>
+    <form action="/submit-form" method="post">
+        <label for="companyName">Company name:</label>
+        <input type="text" id="companyName" name="companyName" required>
+        <label for="contactFace">Contact Person:</label>
+        <input type="text" id="contactFace" name="contactFace" required>
+        <label for="phone">Phone number:</label>
+        <input type="text" id="phone" name="phone" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

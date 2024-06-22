@@ -1,44 +1,77 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Accepted offers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emails with Access Keyword</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
+        body, html {
+            height: 100%;
+            margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 20px;
-            color: #333;
+            /*background-image: url('https://bogatyr.club/uploads/posts/2023-12/1702647782_bogatyr-club-p-fon-dlya-prezentatsii-po-programmirovaniyu-63.jpg');*/
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            overflow: hidden; /* Prevent scrolling */
+        }
+        .bg {
+            background: #024269;
+            height: 100%;
+            background-size: cover;
+            /*filter: brightness(10%); !* Darken the background *!*/
+            position: fixed;
+            width: 100%;
+            z-index: -1;
+        }
+        .content {
+            color: #ffffff; /* White text */
             text-align: center;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 20px;
+        }
+        .logo {
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 20px;
         }
         h1 {
-            color: #4CAF50;
+            color: rgba(255, 255, 255, 0.8); /* White header */
+            font-size: 36px;
+            margin-bottom: 20px;
         }
         ul {
             list-style-type: none;
             padding: 0;
-            margin-top: 20px;
         }
         li {
-            background-color: #fff;
+            font-size: 20px;
+            line-height: 1.6;
             margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            text-align: left;
-        }
-        span {
-            font-size: 16px;
         }
     </style>
 </head>
 <body>
-<h1>Emails with Access Keyword</h1>
-<ul>
-    <li th:each="email : ${emails}">
-        <span th:text="${email}"></span>
-    </li>
-</ul>
+<div class="bg"></div>
+<div class="content">
+    <img src="https://smartvend.kz/assets/img/logo.png" alt="Company Logo" class="logo">
+
+    <h1>Accepted offers</h1>
+    <ul>
+        <li th:each="email : ${emails}">
+            <span th:text="${email}"></span>
+        </li>
+    </ul>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>

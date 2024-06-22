@@ -1,47 +1,91 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Sent Successfully</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
+        body, html {
+            height: 100%;
+            margin: 0;
             font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
-            color: #333;
+            background-image: url('https://bogatyr.club/uploads/posts/2023-12/1702647782_bogatyr-club-p-fon-dlya-prezentatsii-po-programmirovaniyu-63.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            overflow: hidden; /* Prevent scrolling */
+        }
+        .bg {
+            background-image: url('https://www.caffemoak.com/wp-content/uploads/2021/05/AdobeStock_109439683-scaled-1920x1080.jpeg');
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            filter: brightness(40%); /* Darken the background */
+            position: fixed;
+            width: 100%;
+            z-index: -1;
+        }
+        .content {
+            color: #ffffff; /* White text */
             text-align: center;
+            position: relative;
+            top: 45%; /* Adjusted top position */
+            transform: translateY(-50%);
+            padding: 20px;
+        }
+        .logo {
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 20px;
         }
         h1 {
-            color: #4CAF50;
+            color: rgba(255, 255, 255, 0.8); /* White header */
+            font-size: 36px;
+            margin-bottom: 20px;
         }
         p {
-            font-size: 18px;
-            margin: 20px 0;
+            font-size: 20px;
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
-        button {
-            background-color: #4CAF50;
-            color: white;
+        a button {
+            background-color: #FFA500;
+            color: rgba(255, 255, 255, 0.8); /* White text */
             border: none;
             padding: 10px 20px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
-            margin: 10px 0;
+            font-size: 18px;
+            margin-top: 10px;
             cursor: pointer;
             border-radius: 5px;
-            font-size: 16px;
+            transition: background-color 0.3s;
         }
-        button:hover {
-            background-color: #45a049;
+        a button:hover {
+            background-color: #FFA500;
         }
     </style>
 </head>
 <body>
-<h1>Email Sent Successfully</h1>
-<p>Your email has been sent successfully!</p>
-<a th:href="@{/}">
-    <button>Return to Home</button>
-</a>
+<div class="bg"></div>
+<div class="content">
+    <img src="https://smartvend.kz/assets/img/logo.png" alt="Company Logo" class="logo">
+
+    <h1>Email Sent Successfully</h1>
+    <p>Your email has been sent successfully!</p>
+    <a href="/">
+        <button>Return to Home</button>
+    </a>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>

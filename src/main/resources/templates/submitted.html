@@ -1,122 +1,138 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Submitted</title>
+    <title>Download PDF and Send Email</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
+        body, html {
+            height: 100%;
+            margin: 0;
             font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
-            color: #333;
+            background-image: url('https://i.pinimg.com/originals/52/3e/5d/523e5d3f80f28d1db2acb259fd9d05ef.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            overflow: hidden; /* Prevent scrolling */
+
         }
-        h1 {
-            color: #4CAF50;
+        .bg {
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            filter: brightness(30%); /* Darken the background */
+            position: fixed;
+            width: 100%;
+            z-index: -1;
+        }
+        .content {
+            color: #262626;
+            position: relative;
+            text-align: center;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .logo {
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 20px;
         }
         h2 {
-            margin-top: 20px;
-            color: #333;
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 36px;
+            margin-bottom: 20px;
         }
-        a button, button {
-            background-color: #4CAF50;
-            color: white;
+        form {
+            background-color: rgba(255, 254, 254, 0.8); /* Semi-transparent white background */
+            padding: 20px;
+            border-radius: 10px;
+            width: 50%;
+            margin: auto;
+        }
+        label.custom-file-label {
+            color: #000000;
+            font-size: 18px;
+            cursor: pointer;
+            display: block;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        input[type="file"] {
+            display: none; /* Hide default file input */
+        }
+        .file-input-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .file-selected {
+            font-weight: bold;
+        }
+        button[type="submit"] {
+            background-color: #106dad;
+            color: rgba(255, 255, 255, 0.8);
             border: none;
             padding: 10px 20px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
-            margin: 10px 0;
+            font-size: 18px;
+            margin-top: 30px;
             cursor: pointer;
             border-radius: 5px;
-            font-size: 16px;
         }
-        button {
-            background-color: #008CBA;
-        }
-        button:hover {
-            background-color: #005f6b;
-        }
-        a button:hover {
-            background-color: #45a049;
-        }
-        form {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        .file-input-wrapper {
-            position: relative;
-            display: inline-block;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        .file-input-wrapper input[type="file"] {
-            position: absolute;
-            top: 0;
-            right: 0;
-            margin: 0;
-            padding: 0;
-            font-size: 20px;
-            cursor: pointer;
-            opacity: 0;
-            filter: alpha(opacity=0);
-        }
-        .custom-file-label {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .custom-file-label:hover {
-            background-color: #45a049;
-        }
-        .file-selected .custom-file-label {
-            background-color: #45a049; /* Change color when file selected */
-        }
-        p {
-            margin-top: 20px;
-            color: #4CAF50;
+        button[type="submit"]:hover {
+            background-color: #FFA500;
         }
     </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const fileInput = document.querySelector('input[type="file"]');
-            const customFileLabel = document.querySelector('.custom-file-label');
-
-            fileInput.addEventListener('change', function() {
-                if (fileInput.files.length > 0) {
-                    customFileLabel.classList.add('file-selected');
-                } else {
-                    customFileLabel.classList.remove('file-selected');
-                }
-            });
-        });
-    </script>
 </head>
 <body>
-<h2>Download PDF</h2>
-<a th:href="@{'/download-pdf/' + ${formDataId}}">
-    <button>Download PDF</button>
-</a>
+<div class="bg"></div>
 
-<br><br>
+<div class="content">
+    <img src="https://smartvend.kz/assets/img/logo.png" alt="Company Logo" class="logo">
+    <h2>Download PDF</h2>
+    <a th:href="@{'/download-pdf/' + ${formDataId}}">
+        <button class="btn btn-primary">Download PDF</button>
+    </a>
 
-<form th:action="@{/sendEmail}" method="post" enctype="multipart/form-data">
-    <div class="file-input-wrapper">
-        <label class="custom-file-label">Choose File
-            <input type="file" name="file" required />
-        </label>
-    </div>
-    <button type="submit">Send Email</button>
-</form>
+    <br><br>
 
-<br><br>
+    <form th:action="@{/sendEmail}" method="post" enctype="multipart/form-data">
+        <div class="file-input-wrapper">
+            <label class="custom-file-label">Choose File
+                <input type="file" name="file" required />
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Email</button>
+    </form>
 
-<p th:text="${message}"></p>
+    <br><br>
+
+    <p th:text="${message}" class="text-white"></p>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const fileInput = document.querySelector('input[type="file"]');
+        const customFileLabel = document.querySelector('.custom-file-label');
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+                customFileLabel.classList.add('file-selected');
+            } else {
+                customFileLabel.classList.remove('file-selected');
+            }
+        });
+    });
+</script>
+
 </body>
 </html>

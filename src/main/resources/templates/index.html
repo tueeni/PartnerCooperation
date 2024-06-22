@@ -1,35 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Main page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
+        body, html {
+            height: 100%;
             margin: 0;
-            padding: 20px;
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Prevent scrolling */
+        }
+        .bg {
+            background-image: url('https://www.caffemoak.com/wp-content/uploads/2021/05/AdobeStock_109439683-scaled-1920x1080.jpeg');
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            filter: brightness(30%);
+            position: fixed;
+            width: 100%;
+            z-index: -1;
+        }
+        .content {
+            color: rgba(255, 255, 255, 0.99);
+            position: relative;
+            text-align: center;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+        }
+        .logo {
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 20px;
         }
         h1 {
-            color: #4CAF50;
+            color: #106dad;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        h2, b {
+            color: #106dad;
+            font-size: 24px;
+            margin-top: 30px;
+            margin-bottom: 10px;
         }
         p {
-            margin-top: 20px;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
         a {
-            color: #008CBA;
+            color: #FFA500;
             text-decoration: none;
+            transition: color 0.3s;
+            font-size: 18px;
         }
         a:hover {
-            color: #005f6b;
+            color: #FFA500;
         }
     </style>
 </head>
 <body>
-<h1>Welcome to our service. There are you could be our partner.</h1>
-<p><a href="/form">Fill the form for cooperation</a></p>
-<h2>For checking status</h2>
-<p><a href="/emails/access-keyword">Applications that accepted</a></p>
-<p><a href="/emails/decline-keyword">Applications that declined</a></p>
+<div class="bg"></div>
+<div class="content">
+    <img src="https://smartvend.kz/assets/img/logo.png" alt="Company Logo" class="logo">
+    <h1>Welcome to Our Service</h1>
+    <p>Here you can become our partner by filling out the <a href="/form">Cooperation Form</a>.</p>
+    <b>Check Application Status</b>
+    <p>See applications that have been <a href="/emails/access-keyword">accepted</a> or <a href="/emails/decline-keyword">declined</a>.</p>
+    <h2>About Our Process</h2>
+    <p>The process begins with company partners filling out a registration form. Once the form is completed, it is submitted for processing by a server. The server then generates a PDF version of the form. This PDF is subsequently emailed to Kaspi. Upon receipt, Kaspi reviews the form and provides a response. The server, upon receiving Kaspi's response, processes it to determine whether the application has been accepted or rejected. This entire sequence ensures that partner registrations are efficiently managed and responded to in a timely manner.</p>
+</div>
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

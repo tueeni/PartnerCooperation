@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FormData List</title>
+</head>
+<body>
+<h1>FormData List</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Company Name</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="formData : ${formDataList}">
+        <td th:text="${formData.companyName}"></td>
+        <td th:text="${formData.status}"></td> <!-- Assuming 'status' has a toString() method -->
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
